@@ -34,23 +34,22 @@ public class Programador extends Empleado {
 		int lineasDeCodigoPorHora = this.setLineasDeCodigoPorHora(Integer.parseInt(sc.nextLine()));
 		System.out.print("Lenguaje dominante: ");
 		String lenguajeDominante = this.setLenguajeDominante(sc.nextLine());
-		Programador pro = new Programador(nombre,cedula,edad,estadoCivil,salario,lineasDeCodigoPorHora,lenguajeDominante);
+		Programador pro = new Programador(nombre,cedula,edad,"",salario,lineasDeCodigoPorHora,lenguajeDominante);
 		pro.asignarClasficacion(edad);
+		pro.edoCivil(ec);
 		return pro;
 	}
 
 	public static void main(String[] args) {
 		int res,tipo;
-		Empleado emp = null;
-		Programador pro = null;
 		do {	
 			System.out.println("¿A qué clase pertenece? (0=Empleado o 1=Programador): ");
 			tipo = Integer.parseInt(sc.nextLine());
 			if(tipo==0) {
-				emp = new Empleado(null, null, 0, null, (float)0.0);
+				Empleado emp = new Empleado(null, null, 0,null, (float)0.0);
 				AL.add(emp.añadirEmpleado());
 			}else {
-				pro = new Programador(null,null, 0, null, (float) 0.0, 0,null);
+				Programador pro = new Programador(null,null, 0, null, (float) 0.0, 0,null);
 				AL.add(pro.añadirEmpleado());
 			}
 			System.out.println("¿Desea agregar otra persona? \n1.-Si\n2.-No");

@@ -1,7 +1,6 @@
 package evidencia4;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Empleado {
 	//Atributos
@@ -12,6 +11,7 @@ public class Empleado {
 	String estadoCivil;
 	float salario;
 	String clasificacion;
+	int ec;
 	static Scanner sc = new Scanner(System.in);
 	static ArrayList<Empleado> AL = new ArrayList<>();
 	//Constructor
@@ -22,19 +22,6 @@ public class Empleado {
 		this.edad = edad;
 		this.estadoCivil = estadoCivil;
 		this.salario = salario;
-	}
-	
-	
-	public void asignarClasficacion(int edad) {
-		if(edad<=21) {
-			clasificacion = "Principiante";
-		}
-		else if(edad>=22&&edad<=35) {
-			clasificacion = "Intermedio";
-		}
-		else if(edad>35) {
-			clasificacion = "Senior";
-		}
 	}
 	
 	public String getNombre() {
@@ -85,6 +72,18 @@ public class Empleado {
 		return tipo;
 	}
 	
+	public void asignarClasficacion(int edad) {
+		if(edad<=21) {
+			clasificacion = "Principiante";
+		}
+		else if(edad>=22&&edad<=35) {
+			clasificacion = "Intermedio";
+		}
+		else if(edad>35) {
+			clasificacion = "Senior";
+		}
+	}
+	
 	Empleado añadirEmpleado() {
 		System.out.print("Nombre completo: ");
 		String nombre = this.setNombre(sc.nextLine());
@@ -92,13 +91,22 @@ public class Empleado {
 		String cedula = this.setCedula(sc.nextLine());
 		System.out.print("Edad: ");
 		int edad = this.setEdad(Integer.parseInt(sc.nextLine()));
-		System.out.print("Estado Civil (S = soltero o C = casado): ");
-		String estadoCivil = this.setEstadoCivil(sc.nextLine());
+		System.out.print("Estado Civil (0 = soltero o 1 = casado): ");
+		ec = Integer.parseInt(sc.nextLine());
 		System.out.print("Salario: ");
 		float salario = this.setSalario(Float.parseFloat(sc.nextLine()));
-		Empleado e = new Empleado(nombre,cedula,edad,estadoCivil,salario);
+		Empleado e = new Empleado(nombre,cedula,edad,"",salario);
 		e.asignarClasficacion(edad);
+		e.edoCivil(ec);
 		return e;
+	}
+	
+	public void edoCivil(int stn) {
+		if(stn==1) {
+			estadoCivil = "Casado";
+		}else{
+			estadoCivil = "Soltero";
+		}
 	}
 	
 	public static void imprimir() {
