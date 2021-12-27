@@ -1,70 +1,61 @@
 package evidencia4;
 
-import java.util.ArrayList;
-
 public class Programador extends Empleado {
-	static int lineasDeCodigoPorHora;
-	static String lenguajeDominante;
+	int lineasDeCodigoPorHora;
+	String lenguajeDominante;
 	
 	public Programador(String nombre, String cedula, int edad, String estadoCivil, float salario, int lineasDeCodigoPorHora, String lenguajeDominante) {
 		super(nombre, cedula, edad, estadoCivil, salario);
-		Programador.lineasDeCodigoPorHora = lineasDeCodigoPorHora;
-		Programador.lenguajeDominante = lenguajeDominante;
+		this.tipo = "Programador";
+		this.lineasDeCodigoPorHora = lineasDeCodigoPorHora;
+		this.lenguajeDominante = lenguajeDominante;
 	}
 
 	public int getLineasDeCodigoPorHora() {
 		return lineasDeCodigoPorHora;
 	}
 
-	public void setLineasDeCodigoPorHora(int lineasDeCodigoPorHora) {
-		Programador.lineasDeCodigoPorHora = lineasDeCodigoPorHora;
+	public int setLineasDeCodigoPorHora(int lineasDeCodigoPorHora) {
+		return this.lineasDeCodigoPorHora = lineasDeCodigoPorHora;
 	}
 
 	public String getLenguajeDominante() {
 		return lenguajeDominante;
 	}
 
-	public void setLenguajeDominante(String lenguajeDominante) {
-		Programador.lenguajeDominante = lenguajeDominante;
+	public String setLenguajeDominante(String lenguajeDominante) {
+		return this.lenguajeDominante = lenguajeDominante;
 	}
 	
 	@Override
-	Empleado añadirEmpleado() {	
+	Programador añadirEmpleado() {
 		super.añadirEmpleado();
 		System.out.print("Lineas de código por hora: ");
-		int lineasDeCodigoPorHora = Integer.parseInt(sc.nextLine());
+		int lineasDeCodigoPorHora = this.setLineasDeCodigoPorHora(Integer.parseInt(sc.nextLine()));
 		System.out.print("Lenguaje dominante: ");
-		String lenguajeDominante = sc.nextLine();
+		String lenguajeDominante = this.setLenguajeDominante(sc.nextLine());
 		Programador pro = new Programador(nombre,cedula,edad,estadoCivil,salario,lineasDeCodigoPorHora,lenguajeDominante);
 		pro.asignarClasficacion(edad);
 		return pro;
 	}
 
-	@Override
-	public void imprimir(ArrayList<Empleado> AL) {
-		super.imprimir(AL);
-		for(int i=0;i<AL.size();i++) {
-			System.out.println("Lineas de codigo por hora: "+this.getLineasDeCodigoPorHora());
-			System.out.println("Lenguaje dominante: "+this.getLenguajeDominante());
-		}
-	}
-
 	public static void main(String[] args) {
-		int res;
+		int res,tipo;
+		Empleado emp = null;
+		Programador pro = null;
 		do {	
 			System.out.println("¿A qué clase pertenece? (0=Empleado o 1=Programador): ");
-			int tipo = Integer.parseInt(sc.nextLine());
+			tipo = Integer.parseInt(sc.nextLine());
 			if(tipo==0) {
-				Empleado emp = new Empleado(nombre, cedula, edad, estadoCivil, salario);
+				emp = new Empleado(null, null, 0, null, (float)0.0);
 				AL.add(emp.añadirEmpleado());
 			}else {
-				Programador pro = new Programador(nombre, cedula, edad, estadoCivil, salario,lineasDeCodigoPorHora,lenguajeDominante);
+				pro = new Programador(null,null, 0, null, (float) 0.0, 0,null);
 				AL.add(pro.añadirEmpleado());
 			}
 			System.out.println("¿Desea agregar otra persona? \n1.-Si\n2.-No");
 			res = Integer.parseInt(sc.nextLine());
 		}while(res==1);
-		//imprimir();
+		imprimir();
 	}
-
 }

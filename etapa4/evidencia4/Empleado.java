@@ -5,23 +5,25 @@ import java.util.Scanner;
 
 public class Empleado {
 	//Atributos
-	static String nombre;
-	static String cedula;
-	static int edad;
-	static String estadoCivil;
-	static float salario;
+	String tipo;
+	String nombre;
+	String cedula;
+	int edad;
+	String estadoCivil;
+	float salario;
 	String clasificacion;
 	static Scanner sc = new Scanner(System.in);
 	static ArrayList<Empleado> AL = new ArrayList<>();
 	//Constructor
 	public Empleado(String nombre, String cedula, int edad, String estadoCivil, float salario) {
-		super();
-		Empleado.nombre = nombre;
-		Empleado.cedula = cedula;
-		Empleado.edad = edad;
-		Empleado.estadoCivil = estadoCivil;
-		Empleado.salario = salario;
+		this.tipo = "Empleado";
+		this.nombre = nombre;
+		this.cedula = cedula;
+		this.edad = edad;
+		this.estadoCivil = estadoCivil;
+		this.salario = salario;
 	}
+	
 	
 	public void asignarClasficacion(int edad) {
 		if(edad<=21) {
@@ -38,68 +40,83 @@ public class Empleado {
 	public String getNombre() {
 		return nombre;
 	}
-
+	
+	public String setNombre(String nombre) {
+		return this.nombre = nombre;
+	}
+	
 	public String getCedula() {
 		return cedula;
 	}
 
-	public void setCedula(String cedula) {
-		Empleado.cedula = cedula;
+	public String setCedula(String cedula) {
+		return this.cedula = cedula;
 	}
 
 	public int getEdad() {
 		return edad;
 	}
 
-	public void setEdad(int edad) {
-		Empleado.edad = edad;
+	public int setEdad(int edad) {
+		return this.edad = edad;
 	}
 
 	public String getEstadoCivil() {
 		return estadoCivil;
 	}
 
-	public void setEstadoCivil(String estadoCivil) {
-		Empleado.estadoCivil = estadoCivil;
+	public String setEstadoCivil(String estadoCivil) {
+		return this.estadoCivil = estadoCivil;
 	}
 
 	public float getSalario() {
 		return salario;
 	}
 
-	public void setSalario(float salario) {
-		Empleado.salario = salario;
+	public float setSalario(float salario) {
+		return this.salario = salario;
 	}
 
 	public String getClasificacion() {
 		return clasificacion;
 	}
 	
+	public String getTipo() {
+		return tipo;
+	}
+	
 	Empleado añadirEmpleado() {
 		System.out.print("Nombre completo: ");
-		String nombre = sc.nextLine();
+		String nombre = this.setNombre(sc.nextLine());
 		System.out.print("Cedula: ");
-		String cedula = sc.nextLine();
+		String cedula = this.setCedula(sc.nextLine());
 		System.out.print("Edad: ");
-		int edad = Integer.parseInt(sc.nextLine());
+		int edad = this.setEdad(Integer.parseInt(sc.nextLine()));
 		System.out.print("Estado Civil (S = soltero o C = casado): ");
-		String estadoCivil = sc.nextLine();
+		String estadoCivil = this.setEstadoCivil(sc.nextLine());
 		System.out.print("Salario: ");
-		float salario = Float.parseFloat(sc.nextLine());
+		float salario = this.setSalario(Float.parseFloat(sc.nextLine()));
 		Empleado e = new Empleado(nombre,cedula,edad,estadoCivil,salario);
 		e.asignarClasficacion(edad);
 		return e;
 	}
 	
-	public void imprimir(ArrayList<Empleado> AL) {
-		for(Empleado e: AL) {
+	public static void imprimir() {
+		for(int i=0;i<AL.size();i++) {
+			System.out.println("----------Persona #"+(i+1)+"----------");
+			Empleado e = AL.get(i);
+			System.out.println("Categoría: "+e.getTipo());
 			System.out.println("Nombre: "+e.getNombre());
 			System.out.println("Cedula: "+e.getCedula());
-			System.out.println("Edad: "+e.getEdad());
+			System.out.println("Edad: "+e.getEdad()+" años");
 			System.out.println("Estado civil: "+e.getEstadoCivil());
-			System.out.println("Salario: "+e.getSalario());
+			System.out.println("Salario: $"+e.getSalario());
 			System.out.println("Clasificación: "+e.getClasificacion());
+			if(e.getTipo()=="Programador") {
+				Programador p = (Programador) AL.get(i);
+				System.out.println("Lineas de codigo por hora: "+p.getLineasDeCodigoPorHora());
+				System.out.println("Lenguaje dominante: "+p.getLenguajeDominante());
+			}
 		}
 	}
-	
 }
