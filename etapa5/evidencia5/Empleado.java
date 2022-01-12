@@ -1,4 +1,4 @@
-package evidencia4;
+package evidencia5;
 
 import java.util.*;
 
@@ -87,14 +87,37 @@ public class Empleado {//Clase padre
 	
 	Empleado añadirEmpleado() {//Este método sirve para crear un empleado, nos retorna un objeto de tipo empleado.
 		//Entrada de datos.
+		int valid = 0;
 		System.out.print("Nombre completo: ");
 		String nombre = this.setNombre(sc.nextLine());
 		System.out.print("Cedula: ");
 		String cedula = this.setCedula(sc.nextLine());
 		System.out.print("Edad: ");
-		int edad = this.setEdad(Integer.parseInt(sc.nextLine()));
+		//Proceso de manejo de excepciones, si la entrada sigue siendo incorrecta no saldrá del bloque.
+		do {
+			try {
+				int edad = this.setEdad(Integer.parseInt(sc.nextLine()));
+				EdadException oEdadEx = new EdadException();
+				oEdadEx.validarEdad(edad);
+				valid = 0;
+			}catch(EdadException exception) {
+				System.out.print(exception.getMessage());
+				valid = 1;
+			}
+		}while(valid==1);
 		System.out.print("Estado Civil (0 = soltero o 1 = casado): ");
-		ec = Integer.parseInt(sc.nextLine());
+		//Proceso de manejo de excepciones, si la entrada sigue siendo incorrecta no saldrá del bloque.
+		do {
+			try {
+				ec = Integer.parseInt(sc.nextLine());
+				DecisionException oDesEx = new DecisionException();
+				oDesEx.validarDecision(ec);
+				valid = 1;
+			}catch(DecisionException exception) {
+				System.out.print(exception.getMessage());
+				valid = 0;
+			}
+		}while(valid==0);
 		System.out.print("Salario: ");
 		float salario = this.setSalario(Float.parseFloat(sc.nextLine()));
 		Empleado e = new Empleado(nombre,cedula,edad,"",salario);//Instanciamos un empleado donde ahora sí le pasaremos los parametros que acabamos de
